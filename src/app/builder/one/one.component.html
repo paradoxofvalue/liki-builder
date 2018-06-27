@@ -45,7 +45,8 @@
     <h5>Фото этапов строительства</h5>
     <p>Не допускаются к размещению фотографии с водяными знаками, чужих объектов и рекламные баннеры.</p>
     <p>Минимальное разрешение фото 800x600 px</p>
-    <!-- <photo-uploader [photos]=buildingComplex.images></photo-uploader> -->
+
+    <app-photos-uploader [(images)]="buildingComplex.images" [builderComplexId]="buildingComplex.buildingComplex.buildingComplexId"></app-photos-uploader>
   </div>
   
 <button (click)="next()">Next Button</button>

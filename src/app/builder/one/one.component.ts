@@ -4,7 +4,9 @@ import { BuildingComplex } from './building-complex';
 import { } from '@types/googlemaps';
 import { GoogleResult } from './google-result';
 import { ChangeDetectorRef } from '@angular/core';
+import * as _moment from 'moment';
 
+const moment = _moment;
 @Component({
   selector: 'app-one',
   templateUrl: './one.component.html',
@@ -57,7 +59,7 @@ export class OneComponent implements OnInit {
           let temp = item.date.split('.');
           let date = new Date(+temp[2], +temp[1] - 1, +temp[0]);
           item.date = date;
-        })
+        });
         let myLatLng = new google.maps.LatLng(+this.buildingComplex.lat, +this.buildingComplex.lng); 
         this.moveMarker(myLatLng);
         this.map.setCenter(myLatLng);
@@ -212,7 +214,14 @@ export class OneComponent implements OnInit {
   }
 
   next() {
-    this.ds.nextStep();
+    this.buildingComplex.images.forEach(item => {
+      item.date = moment(item.date).format("DD.MM.YYYY");
+    });
+
+    this.ds.send('http://www.likmap.org:8070/add-complex-one', this.buildingComplex)
+    .subscribe(result => {
+      this.ds.nextStep();
+    });
   }
 
 }

@@ -40,4 +40,8 @@ export class DataService {
   get(url, body) {
     return this.http.get(url, {params: body});
   }
+
+  send(url, body) {
+    return this.http.post(url, body);
+  }
 }
