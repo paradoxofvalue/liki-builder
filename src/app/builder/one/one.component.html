@@ -1,0 +1,51 @@
+<div>
+    <label for="buildingComplex.title">Название корпуса: </label>
+    <input id="buildingComplex.title" type="text" [(ngModel)]="buildingComplex.buildingComplex.title">
+  </div>
+  <div>
+    <label for="buildingComplex.constructionStart">Старт и конец строительства: </label>
+    <span>старт</span>
+    <input id="buildingComplex.constructionStart" type="text" [(ngModel)]="buildingComplex.buildingComplex.constructionStart">
+    <span>в експлуатацию</span>
+    <input id="buildingComplex.constructionEnd" type="text" [(ngModel)]="buildingComplex.buildingComplex.constructionEnd">
+  </div>
+  <div>
+    <label for="buildingComplex.price">Цена за кв. м: </label>
+    <span>от</span>
+    <input id="buildingComplex.price" type="text" [(ngModel)]="buildingComplex.buildingComplex.price.price">
+    <span>до</span>
+    <input id="buildingComplex.maxPrice" type="text" [(ngModel)]="buildingComplex.buildingComplex.maxPrice.price">
+    <div>
+      <input type="radio" name="currency" id="USD" checked *ngIf="buildingComplex.buildingComplex.price.currency == 'USD'">
+      <input type="radio" name="currency" id="USD" *ngIf="buildingComplex.buildingComplex.price.currency != 'USD'">
+      <label for="USD">USD</label>
+      <input type="radio" name="currency" id="EUR" checked *ngIf="buildingComplex.buildingComplex.price.currency == 'EUR'">
+      <input type="radio" name="currency" id="EUR" *ngIf="buildingComplex.buildingComplex.price.currency != 'EUR'">
+      <label for="EUR">EUR</label>
+      <input type="radio" name="currency" id="UAH" checked *ngIf="buildingComplex.buildingComplex.price.currency == 'UAH'">
+      <input type="radio" name="currency" id="UAH" *ngIf="buildingComplex.buildingComplex.price.currency != 'USD'">
+      <label for="UAH">UAH</label>
+    </div>
+  </div>
+  <div>
+    <label for="buildingComplex.video">Ссылка на видео: </label>
+    <input id="buildingComplex.video" type="text" [(ngModel)]="buildingComplex.buildingComplex.video">
+  </div>
+  
+  <hr>
+  
+  <div>
+    <label for="buildingComplex.address">Адресс комплекса: </label>
+    <input id="buildingComplex.address" type="text" [(ngModel)]="buildingComplex.buildingComplex.address">
+  
+    <div id="map" height=300 width=300></div>
+  </div>
+  
+  <div>
+    <h5>Фото этапов строительства</h5>
+    <p>Не допускаются к размещению фотографии с водяными знаками, чужих объектов и рекламные баннеры.</p>
+    <p>Минимальное разрешение фото 800x600 px</p>
+    <!-- <photo-uploader [photos]=buildingComplex.images></photo-uploader> -->
+  </div>
+  
+<button (click)="next()">Next Button</button>

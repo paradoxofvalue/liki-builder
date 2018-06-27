@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor='let item of stepsList; index as i'>
+    {{item}}
+    <span *ngIf='i == stepIndex'><*></span>
+  </li>
+</ul>
