@@ -11,6 +11,8 @@ import { MatDatepickerModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { PhotosUploaderComponent } from './photos-uploader/photos-uploader.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ThreeComponent } from './three/three.component';
+import { CanvasDrawerComponent } from './canvas-drawer/canvas-drawer.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,13 +29,16 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     TwoComponent,
     ProgressComponent,
     PhotosUploaderComponent,
-
+    ThreeComponent,
+    CanvasDrawerComponent, 
   ],
   declarations: [
     OneComponent,
     TwoComponent,
     ProgressComponent,
-    PhotosUploaderComponent, 
+    PhotosUploaderComponent,
+    ThreeComponent,
+    CanvasDrawerComponent, 
   ],
   providers: [
     DataService

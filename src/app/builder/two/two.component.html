@@ -1,11 +1,14 @@
-<div></div>
-<div *ngFor="let block of buildingComplex.buildingComplex.buildingBlocks">
-  <input type="text" [(ngModel)]="block.title">
-  <div *ngFor="let section of block.buildingSections">
+<div>
+<div *ngFor="let block of buildingComplex.buildingComplex.buildingBlocks; index as b">
+  <input type="text" [(ngModel)]="block.title" [attr.data-index]="i">
+  <div *ngFor="let section of block.buildingSections; index as s">
     <input type="text" [(ngModel)]="section.title">
     <input type="text" [(ngModel)]="section.numberOfFloors">
   </div>
+  <button (click)="addSection(b)">Add Section</button>
+</div>
+<button (click)="addBlock($event)">Add Block</button>
 </div>
 
 <button (click)="prev()">Prev Button</button>
-<!-- <button (click)="next()">Next Button</button> -->
+<button (click)="next()">Next Button</button>

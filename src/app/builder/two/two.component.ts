@@ -9,7 +9,7 @@ import { BuildingComplex } from '../one/building-complex';
 })
 export class TwoComponent implements OnInit {
   buildingComplex: BuildingComplex;
-  constructor(private ds: DataService, private cd: ChangeDetectorRef) { }
+  constructor(private ds: DataService) { }
 
   ngOnInit() {
     this.buildingComplex = {
@@ -49,6 +49,31 @@ export class TwoComponent implements OnInit {
       .subscribe(result => {
         this.buildingComplex = <BuildingComplex>result;
       })
+  }
+
+  addBlock(event) {
+    this.buildingComplex.buildingComplex.buildingBlocks.push({
+      buildingBlockId: null,
+        status: null,
+        title: null,
+        buildingSections: [
+          {
+            buildingSectionId: null,
+            title: null,
+            numberOfFloors: null,
+            status: null,
+          }
+        ],
+    })
+  }
+
+  addSection(index) {
+    this.buildingComplex.buildingComplex.buildingBlocks[index].buildingSections.push({
+      buildingSectionId: null,
+      title: null,
+      numberOfFloors: null,
+      status: null,
+    })
   }
 
   next() {
