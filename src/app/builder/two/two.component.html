@@ -1,3 +1,11 @@
-<p>
-  two works!
-</p>
+<div></div>
+<div *ngFor="let block of buildingComplex.buildingComplex.buildingBlocks">
+  <input type="text" [(ngModel)]="block.title">
+  <div *ngFor="let section of block.buildingSections">
+    <input type="text" [(ngModel)]="section.title">
+    <input type="text" [(ngModel)]="section.numberOfFloors">
+  </div>
+</div>
+
+<button (click)="prev()">Prev Button</button>
+<!-- <button (click)="next()">Next Button</button> -->

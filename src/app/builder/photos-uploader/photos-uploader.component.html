@@ -1,0 +1,14 @@
+<div *ngIf="images">
+  <ul>
+    <li>
+      <input type="file" id="photoUpload" accept="image/" multiple (change)="photoUpload($event)">
+    </li>
+    <li *ngFor="let image of images">
+      <img style="width: 100px" [src]="image.link || image.base64Image" alt="">
+
+      <input matInput [matDatepicker]="dp" placeholder="Verbose datepicker" [(ngModel)]="image.date" [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+    </li>
+  </ul>
+</div>

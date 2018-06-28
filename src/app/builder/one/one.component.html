@@ -48,5 +48,10 @@
 
     <app-photos-uploader [(images)]="buildingComplex.images" [builderComplexId]="buildingComplex.buildingComplex.buildingComplexId"></app-photos-uploader>
   </div>
+
+  <div>
+    <h5>Описание комплекса</h5>
+    <angular-editor [(ngModel)]="buildingComplex.buildingComplex.description"></angular-editor>
+  </div>
   
 <button (click)="next()">Next Button</button>

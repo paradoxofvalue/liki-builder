@@ -1,5 +1,5 @@
 export class BuildingComplex extends Object {
-  administrativeAreaLevel1:any = null;
+  administrativeAreaLevel1 = null;
   administrativeAreaLevel2 = null;
   administrativeAreaLevel3 = null;
   country = null;

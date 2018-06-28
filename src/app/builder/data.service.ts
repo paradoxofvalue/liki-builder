@@ -37,7 +37,7 @@ export class DataService {
     return this.http.get(this.url);
   }
 
-  get(url, body) {
+  get(url, body?) {
     return this.http.get(url, {params: body});
   }
 

@@ -5,12 +5,15 @@ import { } from '@types/googlemaps';
 import { GoogleResult } from './google-result';
 import { ChangeDetectorRef } from '@angular/core';
 import * as _moment from 'moment';
+import { AngularEditorComponent } from '@kolkov/angular-editor';
+
 
 const moment = _moment;
 @Component({
   selector: 'app-one',
   templateUrl: './one.component.html',
-  styleUrls: ['./one.component.css']
+  styleUrls: ['./one.component.css'],
+  providers: [AngularEditorComponent]
 })
 export class OneComponent implements OnInit {
 
@@ -213,15 +216,17 @@ export class OneComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  next() {
-    this.buildingComplex.images.forEach(item => {
-      item.date = moment(item.date).format("DD.MM.YYYY");
-    });
+  next() { 
+    // this.buildingComplex.images.forEach(item => {
+    //   item.date = moment(item.date).format("DD.MM.YYYY");
+    // });
 
-    this.ds.send('http://www.likmap.org:8070/add-complex-one', this.buildingComplex)
-    .subscribe(result => {
-      this.ds.nextStep();
-    });
+    // this.ds.send('http://www.likmap.org:8080/add-complex-one', this.buildingComplex)
+    // .subscribe(result => {
+    // });
+
+    this.ds.nextStep();
+
   }
 
 }
