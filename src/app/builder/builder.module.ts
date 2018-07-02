@@ -7,7 +7,7 @@ import { TwoComponent } from './two/two.component';
 import { ProgressComponent } from './progress/progress.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material';
+import { MatDatepickerModule, MatSelectModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { PhotosUploaderComponent } from './photos-uploader/photos-uploader.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -22,6 +22,7 @@ import { CanvasDrawerComponent } from './canvas-drawer/canvas-drawer.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    MatSelectModule,
     AngularEditorModule
   ],
   exports: [
@@ -41,7 +42,7 @@ import { CanvasDrawerComponent } from './canvas-drawer/canvas-drawer.component';
     CanvasDrawerComponent, 
   ],
   providers: [
-    DataService
+    DataService,
   ],
 })
 export class BuilderModule { }

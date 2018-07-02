@@ -1,1 +1,20 @@
-<canvas height="400px" width="700px" #canvas></canvas>
+<div class="canvases">
+  <canvas height="400px" width="700px" #canvasImage></canvas>
+    <canvas height="400px" width="700px" #canvas></canvas>
+</div>
+
+<div #info>
+  <mat-form-field *ngFor="let polygon of markup.buildingImagePolygons; index as i">
+    <mat-select [(value)]="polygon.entityId" placeholder="Выберите блок" [class]="colors[markup.buildingImagePolygons.length-1]">
+      <mat-option>None</mat-option>
+      <mat-option 
+        *ngFor="let block of buildingComplex.buildingComplex.buildingBlocks" 
+        [value]="block.buildingBlockId">
+        {{block.title}}
+      </mat-option>
+    </mat-select>
+    <button (click)="removePolygon(i)">&times;</button>
+  </mat-form-field>
+
+
+</div>

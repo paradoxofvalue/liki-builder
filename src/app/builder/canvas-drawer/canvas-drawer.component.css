@@ -1,0 +1,8 @@
+div.canvases {
+  position: relative;
+  height: 400px;
+  width: 700px;
+}
+div.canvases  canvas {
+  position: absolute;
+}

@@ -1,5 +1,5 @@
 <div *ngFor="let item of markups">
-  <app-canvas-drawer [markup]="item"></app-canvas-drawer>
+  <app-canvas-drawer [markup]="item" [buildingComplex]="buildingComplex"></app-canvas-drawer>
   <!-- {{item.buildingImagePolygons}} -->
 </div>
 <button (click)="prev()">Prev</button>
