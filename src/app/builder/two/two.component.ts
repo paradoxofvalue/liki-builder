@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../data.service';
-import { BuildingComplex } from '../one/building-complex';
+import { BuildingBlock } from './building-block';
 
 @Component({
   selector: 'app-two',
@@ -8,80 +8,88 @@ import { BuildingComplex } from '../one/building-complex';
   styleUrls: ['./two.component.css']
 })
 export class TwoComponent implements OnInit {
-  buildingComplex: BuildingComplex;
+  buildingStructure: BuildingBlock;
   constructor(private ds: DataService) { }
 
   ngOnInit() {
-    this.buildingComplex = {
-      administrativeAreaLevel1: '',
-      administrativeAreaLevel2: null,
-      administrativeAreaLevel3: null,
-      country: null,
-      lat: null,
-      lng: null,
-      locality: null,
-      route: null,
-      streetNumber: null,
-      sublocalityLevel1: null,
-      buildingComplex: {
-        buildingComplexId: null,
-        buildingBlocks: [],
-        address: null,
-        constructionEnd: null,
-        constructionStart: null,
-        description: null,
-        maxPrice: {
-          currency: null,
-          price: null,
-        },
-        price: {
-          currency: null,
-          price: null,
-        },
-        status: null,
-        title: null,
-        video: null,
-      },
-      images: [],
+    this.buildingStructure = {
+      buildingComplexId: null,
+      buildingBlock: [
+        {
+          buildingBlockId: null,
+          status: null,
+          title: null,
+          buildingSections: [
+            {
+              buildingSectionId: null,
+              title: null,
+              numberOfFloors: null,
+              status: null,
+            }
+          ],
+        }
+      ],
 
     }
-    this.ds.get('http://www.likmap.org:8080/add-complex-one/45')
+    this.ds.get('http://www.likmap.org:8070/add-complex-two/45')
       .subscribe(result => {
-        this.buildingComplex = <BuildingComplex>result;
+        this.buildingStructure = <BuildingBlock>result;
       })
   }
 
-  addBlock(event) {
-    this.buildingComplex.buildingComplex.buildingBlocks.push({
+  addBlock() {
+    this.buildingStructure.buildingBlock.push({
       buildingBlockId: null,
-        status: null,
-        title: null,
-        buildingSections: [
-          {
-            buildingSectionId: null,
-            title: null,
-            numberOfFloors: null,
-            status: null,
-          }
-        ],
+      status: "ACTIVE",
+      title: null,
+      buildingSections: [
+        {
+          buildingSectionId: null,
+          title: null,
+          numberOfFloors: null,
+          status: "ACTIVE",
+        }
+      ],
     })
   }
 
   addSection(index) {
-    this.buildingComplex.buildingComplex.buildingBlocks[index].buildingSections.push({
+    this.buildingStructure.buildingBlock[index].buildingSections.push({
       buildingSectionId: null,
       title: null,
       numberOfFloors: null,
-      status: null,
+      status: "ACTIVE",
     })
   }
 
-  next() {
-    // this.ds.send('http://www.likmap.org:8080/add-complex-one', this.buildingComplex)
-    // .subscribe(result => {
-    // });
+  removeBlock(index) {
+    if (this.buildingStructure.buildingBlock[index].buildingBlockId) {
+      this.buildingStructure.buildingBlock[index].status = "TRASH";
+      this.buildingStructure.buildingBlock[index].buildingSections.forEach((section, sIndex) => {
+        if (section.buildingSectionId) {
+          section.status = "TRASH";
+        } else {
+          this.buildingStructure.buildingBlock[index].buildingSections.splice(sIndex, 1)
+        }
+      });
+    } else {
+      this.buildingStructure.buildingBlock.splice(index, 1);
+    }
+  }
 
-    this.ds.nextStep();
+  removeSection(blockIndex, sectionIndex) {
+    if (this.buildingStructure.buildingBlock[blockIndex].buildingSections[sectionIndex].buildingSectionId) {
+      this.buildingStructure.buildingBlock[blockIndex].buildingSections[sectionIndex].status = "TRASH";
+    } else {
+      this.buildingStructure.buildingBlock[blockIndex].buildingSections.splice(sectionIndex, 1);
+    }
+  }
+
+  next() {
+    this.ds.send('http://www.likmap.org:8070/add-complex-two', this.buildingStructure)
+      .subscribe(result => {
+        this.ds.nextStep();
+      });
   }
 
   prev() {

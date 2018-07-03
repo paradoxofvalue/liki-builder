@@ -49,7 +49,6 @@ export class PhotosUploaderComponent implements OnInit {
       let reader = new FileReader();
       reader.onload = (function (theFile) {
         return function (e) {
-          debugger;
           self.images.push({
             base64Image: e.target.result,
             buildingImageId: null,
@@ -65,6 +64,15 @@ export class PhotosUploaderComponent implements OnInit {
       reader.readAsDataURL(f);
     }
 
+  }
+
+  remove(index) {
+    if (this.images[index].buildingImageId) {
+      this.images[index].status = "TRASH";
+    } else {
+      this.images.splice(index, 1);
+    }
+    
   }
 
 }

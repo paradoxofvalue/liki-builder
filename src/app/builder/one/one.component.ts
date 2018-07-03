@@ -63,7 +63,7 @@ export class OneComponent implements OnInit {
           let date = new Date(+temp[2], +temp[1] - 1, +temp[0]);
           item.date = date;
         });
-        let myLatLng = new google.maps.LatLng(+this.buildingComplex.lat, +this.buildingComplex.lng); 
+        let myLatLng = new google.maps.LatLng(+this.buildingComplex.lat, +this.buildingComplex.lng);
         this.moveMarker(myLatLng);
         this.map.setCenter(myLatLng);
         this.getLocationDataByCoordinates(this.buildingComplex.lat, this.buildingComplex.lng);
@@ -216,16 +216,16 @@ export class OneComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  next() { 
-    // this.buildingComplex.images.forEach(item => {
-    //   item.date = moment(item.date).format("DD.MM.YYYY");
-    // });
+  next() {
+    this.buildingComplex.images.forEach(item => {
+      item.date = moment(item.date).format("DD.MM.YYYY");
+    });
 
-    // this.ds.send('http://www.likmap.org:8080/add-complex-one', this.buildingComplex)
-    // .subscribe(result => {
-    // });
+    this.ds.send('http://www.likmap.org:8070/add-complex-one', this.buildingComplex)
+      .subscribe(result => {
+        this.ds.nextStep();
+      });
 
-    this.ds.nextStep();
 
   }
 

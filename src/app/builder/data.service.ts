@@ -13,7 +13,7 @@ export class DataService {
     'three'
   ];
 
-  stepSource = new BehaviorSubject('2'); // или засетить из локал сторейдж
+  stepSource = new BehaviorSubject('1'); // или засетить из локал сторейдж
   
   stepIndex = this.stepSource.asObservable();
 

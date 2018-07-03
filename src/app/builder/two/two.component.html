@@ -1,13 +1,19 @@
 <div>
-<div *ngFor="let block of buildingComplex.buildingComplex.buildingBlocks; index as b">
-  <input type="text" [(ngModel)]="block.title" [attr.data-index]="i">
-  <div *ngFor="let section of block.buildingSections; index as s">
-    <input type="text" [(ngModel)]="section.title">
-    <input type="text" [(ngModel)]="section.numberOfFloors">
+  <div *ngFor="let block of buildingStructure.buildingBlock; index as b">
+    <div *ngIf="block.status != 'TRASH'">
+        <input type="text" [(ngModel)]="block.title" [attr.data-index]="i">
+        <button (click)="removeBlock(b)">&times;</button>
+        <div *ngFor="let section of block.buildingSections; index as s">
+          <div *ngIf="section.status != 'TRASH'">
+              <input type="text" [(ngModel)]="section.title">
+              <input type="text" [(ngModel)]="section.numberOfFloors">
+              <button (click)="removeSection(b, s)">&times;</button>
+          </div>
+        </div>
+        <button (click)="addSection(b)">Add Section</button>
+    </div>
   </div>
-  <button (click)="addSection(b)">Add Section</button>
-</div>
-<button (click)="addBlock($event)">Add Block</button>
+  <button (click)="addBlock()">Add Block</button>
 </div>
 
 <button (click)="prev()">Prev Button</button>
