@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Inject, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Inject, ViewContainerRef, Output, EventEmitter } from '@angular/core';
 import { Markup } from '../markup';
 import { Observable, of, fromEvent } from 'rxjs';
 import { switchMap, subscribeOn, takeUntil, pairwise } from 'rxjs/operators';
 import { Polygon } from './polygon';
 import { ColorConvert } from './color-convert';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { BuildingComplex } from '../one/building-complex';
+import { BuildingBlock } from '../two/building-block';
 
 @Component({
   selector: 'app-canvas-drawer',
@@ -19,14 +20,17 @@ export class CanvasDrawerComponent implements AfterViewInit {
   @ViewChild('info') public info: ElementRef;
 
   @Input() markup: Markup;
-  @Input() buildingComplex: BuildingComplex;
+  @Input() buildingBlock: BuildingBlock;
+  @Input() entityType: string;
+
+  @Output() selectionChange: EventEmitter<MatSelectChange>;
 
   private cx: CanvasRenderingContext2D;
   private imageCx: CanvasRenderingContext2D;
 
-  private img;
+  private childEntityType: string = '';
 
-  private polygons: Polygon[] = [];
+  private img;
 
   private color = new ColorConvert();
 
@@ -55,40 +59,56 @@ export class CanvasDrawerComponent implements AfterViewInit {
   private currentPolygon: Polygon;
 
   ngOnInit() {
-    if (this.markup) {
-      const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
-      const canvasImageEl: HTMLCanvasElement = this.canvasImage.nativeElement;
-
-      this.cx = canvasEl.getContext('2d');
-      this.imageCx = canvasImageEl.getContext('2d');
-
-      this.img = new Image();
-      this.img.src = this.markup.link;
-      this.img.onload = () => {
-        let icasoc = this.getImageCoordinatesAndSizeOnCanvas(canvasEl, this.img);
-        this.imageCx.drawImage(this.img, icasoc.x, icasoc.y, icasoc.width, icasoc.height);
+    this.buildingBlock.buildingBlock.forEach((block, index) => {
+      if (block.buildingBlockId == this.markup.entityId) {
+        this.blockIndex = index;
+      }
+    })
+    switch (this.entityType) {
+      case 'BUILDING_BLOCK': {
+        this.childEntityType = 'BUILDING_SECTION';
+        break;
+      }
+      case 'BUILDING_COMPLEX': {
+        this.childEntityType = 'BUILDING_BLOCK';
+        break;
       }
     }
+    this.isDisabled = this.markup.buildingImagePolygons.length ? true : false;
+  }
 
-
-
+  private blockIndex: number = 0;
+  private isDisabled: boolean;
+  getBlock(event) {
+    this.blockIndex = event.source.tabIndex;
   }
 
   ngAfterViewInit() {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
+    const canvasImageEl: HTMLCanvasElement = this.canvasImage.nativeElement;
+
     this.cx = canvasEl.getContext('2d');
+    this.imageCx = canvasImageEl.getContext('2d');
 
     this.cx.lineWidth = 1;
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = '#000';
 
     if (this.markup) {
+      if (this.markup.buildingImagePolygons.length) {
+        this.markup.buildingImagePolygons.forEach((polygon: Polygon) => {
+          polygon.tempPolygon = JSON.parse(polygon.polygon);
+          polygon._id = this.markup.buildingImagePolygons.length;
+        });
+        this.redrawCanvas();
+      }
 
-      this.markup.buildingImagePolygons.forEach((polygon: Polygon) => {
-        polygon.tempPolygon = JSON.parse(polygon.polygon);
-        polygon._id = this.markup.buildingImagePolygons.length;
-      })
-      this.redrawCanvas();
+      this.img = new Image();
+      this.img.src = this.markup.link || this.markup.base64Image;
+      this.img.onload = () => {
+        let icasoc = this.getImageCoordinatesAndSizeOnCanvas(canvasEl, this.img);
+        this.imageCx.drawImage(this.img, icasoc.x, icasoc.y, icasoc.width, icasoc.height);
+      }
     }
 
     this.captureEvents(canvasEl);
@@ -136,7 +156,6 @@ export class CanvasDrawerComponent implements AfterViewInit {
       this.cx.fill();
       this.isDrawing = false;
       this.currentPolygon = undefined;
-      console.log(this.markup.buildingImagePolygons);
     }
 
     this.cx.lineTo(currentPos.x, currentPos.y);
@@ -164,7 +183,7 @@ export class CanvasDrawerComponent implements AfterViewInit {
       });
       if (inRange) {
         this.canvas.nativeElement.style.cursor = 'pointer';
-        // console.log(hoveredPolygon);
+        console.log(hoveredPolygon);
       } else {
         this.canvas.nativeElement.style.cursor = 'auto';
       }
@@ -175,7 +194,13 @@ export class CanvasDrawerComponent implements AfterViewInit {
   }
 
   private removePolygon(index) {
-    this.markup.buildingImagePolygons.splice(index, 1);
+    if (this.markup.buildingImagePolygons[index].buildingImagePolygonId) {
+      this.markup.buildingImagePolygons[index].status = 'TRASH';
+    } else {
+      this.markup.buildingImagePolygons.splice(index, 1);
+    }
+    
+    this.isDisabled = this.markup.buildingImagePolygons.length ? true : false;
     this.redrawCanvas();
   }
 
@@ -187,9 +212,10 @@ export class CanvasDrawerComponent implements AfterViewInit {
     if (!this.isDrawing) {
       this.currentPolygon = new Polygon(
         this.markup.buildingImagePolygons.length + 1,
-        this.color.to_rgba(this.colors[this.markup.buildingImagePolygons.length])
+        this.color.to_rgba(this.colors[this.markup.buildingImagePolygons.length]),
+        null,
+        this.childEntityType
       );
-
       this.currentPolygon.tempPolygon.push(currentPos);
       this.cx.fillStyle = this.currentPolygon.color;
 
@@ -285,4 +311,6 @@ export class CanvasDrawerComponent implements AfterViewInit {
     }
 
   }
+
+
 }

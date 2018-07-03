@@ -10,10 +10,11 @@ export class DataService {
   steps:string[] = [
     'one',
     'two',
-    'three'
+    'three',
+    'four'
   ];
 
-  stepSource = new BehaviorSubject('1'); // или засетить из локал сторейдж
+  stepSource = new BehaviorSubject('3'); // или засетить из локал сторейдж
   
   stepIndex = this.stepSource.asObservable();
 

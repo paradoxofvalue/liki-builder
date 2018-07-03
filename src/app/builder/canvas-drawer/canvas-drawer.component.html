@@ -1,20 +1,48 @@
-<div class="canvases">
-  <canvas height="400px" width="700px" #canvasImage></canvas>
+<div *ngIf="markup">
+
+  <div *ngIf="entityType == 'BUILDING_BLOCK'">
+    <mat-form-field>
+      <mat-select [(value)]="markup.entityId" placeholder="Выберите блок" (selectionChange)="getBlock($event)" [disabled]="isDisabled">
+        <mat-option *ngFor="let block of buildingBlock.buildingBlock; index as i" [value]="block.buildingBlockId" >
+          {{block.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="canvases">
+    <canvas height="400px" width="700px" #canvasImage></canvas>
     <canvas height="400px" width="700px" #canvas></canvas>
-</div>
+  </div>
 
-<div #info>
-  <mat-form-field *ngFor="let polygon of markup.buildingImagePolygons; index as i">
-    <mat-select [(value)]="polygon.entityId" placeholder="Выберите блок" [class]="colors[markup.buildingImagePolygons.length-1]">
-      <mat-option>None</mat-option>
-      <mat-option 
-        *ngFor="let block of buildingComplex.buildingComplex.buildingBlocks" 
-        [value]="block.buildingBlockId">
-        {{block.title}}
-      </mat-option>
-    </mat-select>
-    <button (click)="removePolygon(i)">&times;</button>
-  </mat-form-field>
+  <div #info>
+    <div *ngIf="entityType == 'BUILDING_COMPLEX'">
+      <mat-form-field *ngFor="let polygon of markup.buildingImagePolygons; index as i">
+        <mat-select 
+          [(value)]="polygon.entityId" 
+          placeholder="Выберите блок" 
+          [class]="colors[markup.buildingImagePolygons.length-1]">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let block of buildingBlock.buildingBlock" [value]="block.buildingBlockId">
+            {{block.title}}
+          </mat-option>
+        </mat-select>
+        <button (click)="removePolygon(i)">&times;</button>
+      </mat-form-field>
+    </div>
 
+    <div *ngIf="entityType == 'BUILDING_BLOCK'">
+      <mat-form-field *ngFor="let polygon of markup.buildingImagePolygons; index as i">
+        <mat-select [(value)]="polygon.entityId" placeholder="Выберите секцию" [class]="colors[markup.buildingImagePolygons.length-1]">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let section of buildingBlock.buildingBlock[blockIndex].buildingSections" [value]="section.buildingSectionId">
+            {{section.title}}
+          </mat-option>
+        </mat-select>
+        <button (click)="removePolygon(i)">&times;</button>
+      </mat-form-field>
 
+    </div>
+
+  </div>
 </div>

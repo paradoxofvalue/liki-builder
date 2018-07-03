@@ -5,7 +5,7 @@ export class Markup {
   status: string;
   entityId: number;
   entityType: string;
-  buildingImagePolygons: Object[] = [
+  buildingImagePolygons: [
     {
       buildingImagePolygonId: '',
       buildingImage: {

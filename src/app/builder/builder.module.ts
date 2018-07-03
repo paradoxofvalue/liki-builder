@@ -13,6 +13,8 @@ import { PhotosUploaderComponent } from './photos-uploader/photos-uploader.compo
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ThreeComponent } from './three/three.component';
 import { CanvasDrawerComponent } from './canvas-drawer/canvas-drawer.component';
+import { CanvasPhotoUploaderComponent } from './canvas-photo-uploader/canvas-photo-uploader.component';
+import { FourComponent } from './four/four.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +34,8 @@ import { CanvasDrawerComponent } from './canvas-drawer/canvas-drawer.component';
     PhotosUploaderComponent,
     ThreeComponent,
     CanvasDrawerComponent, 
+    CanvasPhotoUploaderComponent,
+    FourComponent,
   ],
   declarations: [
     OneComponent,
@@ -39,7 +43,9 @@ import { CanvasDrawerComponent } from './canvas-drawer/canvas-drawer.component';
     ProgressComponent,
     PhotosUploaderComponent,
     ThreeComponent,
-    CanvasDrawerComponent, 
+    CanvasDrawerComponent,
+    CanvasPhotoUploaderComponent,
+    FourComponent, 
   ],
   providers: [
     DataService,
