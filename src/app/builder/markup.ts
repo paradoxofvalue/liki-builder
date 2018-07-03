@@ -1,3 +1,5 @@
+import { Polygon } from "./canvas-drawer/polygon";
+
 export class Markup {
   buildingImageId: number;
   link: string;
@@ -5,17 +7,6 @@ export class Markup {
   status: string;
   entityId: number;
   entityType: string;
-  buildingImagePolygons: [
-    {
-      buildingImagePolygonId: '',
-      buildingImage: {
-        buildingImageId: '',
-      },
-      entityId: '',
-      entityType: '',
-      polygon: '',
-      status: ''
-    }
-  ];
+  buildingImagePolygons: Polygon[]; 
   base64Image: string
 }
