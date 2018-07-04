@@ -2,7 +2,9 @@
   <app-canvas-drawer [markup]="item" [buildingBlock]="buildingBlock" [entityType]="entityType"></app-canvas-drawer>
 </div>
 
-<button (click)="addNewMarkup()">Add new Markup</button>
+<div>
+  <button (click)="addNewMarkup()">Add new Markup</button>
+</div>
 
 <div *ngIf="!markups || newMarkup">
   <app-canvas-photo-uploader 

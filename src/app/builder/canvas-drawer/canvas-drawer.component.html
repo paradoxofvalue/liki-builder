@@ -20,13 +20,19 @@
       <mat-form-field *ngFor="let polygon of markup.buildingImagePolygons; index as i">
         <mat-select 
           [(value)]="polygon.entityId" 
-          placeholder="Выберите блок" 
           [class]="colors[markup.buildingImagePolygons.length-1]">
-          <mat-option>None</mat-option>
+          <mat-option value="invalid">None</mat-option>
           <mat-option *ngFor="let block of buildingBlock.buildingBlock" [value]="block.buildingBlockId">
             {{block.title}}
           </mat-option>
         </mat-select>
+
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <!-- <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error> -->
+        <!-- <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')"> -->
+          <!-- Your selection is invalid -->
+        <!-- </mat-error> -->
+
         <button (click)="removePolygon(i)">&times;</button>
       </mat-form-field>
     </div>

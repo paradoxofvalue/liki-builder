@@ -4,16 +4,31 @@ import { BuildingComplex } from './building-complex';
 import { } from '@types/googlemaps';
 import { GoogleResult } from './google-result';
 import { ChangeDetectorRef } from '@angular/core';
-import * as _moment from 'moment';
 import { AngularEditorComponent } from '@kolkov/angular-editor';
-
+import * as _moment from 'moment';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 const moment = _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'app-one',
   templateUrl: './one.component.html',
-  styleUrls: ['./one.component.css'],
-  providers: [AngularEditorComponent]
+  styleUrls: ['./one.component.scss'],
+  providers: [
+    AngularEditorComponent,
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ]
 })
 export class OneComponent implements OnInit {
 
@@ -54,14 +69,21 @@ export class OneComponent implements OnInit {
 
   }
 
+  test(event) {
+    debugger;
+  }
+
   ngOnInit() {
-    this.ds.getData()
+    this.ds.get('/add-complex-one/45')
       .subscribe(result => {
         this.buildingComplex = <BuildingComplex>result;
+        let temp = this.buildingComplex.buildingComplex.constructionStart.split('.');
+        this.buildingComplex.buildingComplex.constructionStart = new Date(+temp[2], +temp[1] - 1, +temp[0]);
+        temp = this.buildingComplex.buildingComplex.constructionEnd.split('.');
+        this.buildingComplex.buildingComplex.constructionEnd = new Date(+temp[2], +temp[1] - 1, +temp[0]);
         this.buildingComplex.images.forEach(item => {
           let temp = item.date.split('.');
-          let date = new Date(+temp[2], +temp[1] - 1, +temp[0]);
-          item.date = date;
+          item.date = new Date(+temp[2], +temp[1] - 1, +temp[0]);
         });
         let myLatLng = new google.maps.LatLng(+this.buildingComplex.lat, +this.buildingComplex.lng);
         this.moveMarker(myLatLng);
@@ -221,12 +243,10 @@ export class OneComponent implements OnInit {
       item.date = moment(item.date).format("DD.MM.YYYY");
     });
 
-    this.ds.send('http://www.likmap.org:8070/add-complex-one', this.buildingComplex)
+    this.ds.send('/add-complex-one', this.buildingComplex)
       .subscribe(result => {
         this.ds.nextStep();
       });
-
-
   }
 
 }

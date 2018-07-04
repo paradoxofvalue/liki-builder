@@ -1,21 +1,29 @@
-<div>
+<div class="wrapper">
+  <h3>Основная информация о комплексе</h3>
+  <div class="form-group">
     <label for="buildingComplex.title">Название корпуса: </label>
     <input id="buildingComplex.title" type="text" [(ngModel)]="buildingComplex.buildingComplex.title">
   </div>
-  <div>
+  <div class="form-group">
     <label for="buildingComplex.constructionStart">Старт и конец строительства: </label>
     <span>старт</span>
-    <input id="buildingComplex.constructionStart" type="text" [(ngModel)]="buildingComplex.buildingComplex.constructionStart">
+    <!-- <input id="buildingComplex.constructionStart" type="text" [(ngModel)]="buildingComplex.buildingComplex.constructionStart"> -->
+    <input (click)="constructionStart.open()" matInput class="date" id="buildingComplex.constructionStart" [matDatepicker]="constructionStart" placeholder="Verbose datepicker" [(ngModel)]="buildingComplex.buildingComplex.constructionStart">
+    <!-- <mat-datepicker-toggle matSuffix [for]="constructionStart"></mat-datepicker-toggle> -->
+    <mat-datepicker #constructionStart></mat-datepicker>
     <span>в експлуатацию</span>
-    <input id="buildingComplex.constructionEnd" type="text" [(ngModel)]="buildingComplex.buildingComplex.constructionEnd">
+    <!-- <input id="buildingComplex.constructionEnd" type="text" [(ngModel)]="buildingComplex.buildingComplex.constructionEnd"> -->
+    <input (click)="constructionEnd.open()" matInput class="date" id="buildingComplex.constructionEnd" [matDatepicker]="constructionEnd" placeholder="Verbose datepicker" [(ngModel)]="buildingComplex.buildingComplex.constructionEnd">
+    <!-- <mat-datepicker-toggle matSuffix [for]="constructionEnd"></mat-datepicker-toggle> -->
+    <mat-datepicker #constructionEnd></mat-datepicker>
   </div>
-  <div>
+  <div class="form-group">
     <label for="buildingComplex.price">Цена за кв. м: </label>
     <span>от</span>
-    <input id="buildingComplex.price" type="text" [(ngModel)]="buildingComplex.buildingComplex.price.price">
+    <input class="price" id="buildingComplex.price" type="text" [(ngModel)]="buildingComplex.buildingComplex.price.price">
     <span>до</span>
-    <input id="buildingComplex.maxPrice" type="text" [(ngModel)]="buildingComplex.buildingComplex.maxPrice.price">
-    <div>
+    <input class="price" id="buildingComplex.maxPrice" type="text" [(ngModel)]="buildingComplex.buildingComplex.maxPrice.price">
+    <div class="currency-radio">
       <input type="radio" name="currency" id="USD" checked *ngIf="buildingComplex.buildingComplex.price.currency == 'USD'">
       <input type="radio" name="currency" id="USD" *ngIf="buildingComplex.buildingComplex.price.currency != 'USD'">
       <label for="USD">USD</label>
@@ -27,31 +35,34 @@
       <label for="UAH">UAH</label>
     </div>
   </div>
-  <div>
+  <div class="form-group">
     <label for="buildingComplex.video">Ссылка на видео: </label>
     <input id="buildingComplex.video" type="text" [(ngModel)]="buildingComplex.buildingComplex.video">
   </div>
-  
-  <hr>
-  
-  <div>
-    <label for="buildingComplex.address">Адресс комплекса: </label>
-    <input id="buildingComplex.address" type="text" [(ngModel)]="buildingComplex.buildingComplex.address">
-  
+</div>
+
+<div class="wrapper">
+  <h3>Адресс комплекса</h3>
+  <div class="form-group">
+    <input class="address" id="buildingComplex.address" type="text" [(ngModel)]="buildingComplex.buildingComplex.address">
+
     <div id="map" height=300 width=300></div>
   </div>
-  
-  <div>
-    <h5>Фото этапов строительства</h5>
-    <p>Не допускаются к размещению фотографии с водяными знаками, чужих объектов и рекламные баннеры.</p>
-    <p>Минимальное разрешение фото 800x600 px</p>
+</div>
 
-    <app-photos-uploader [(images)]="buildingComplex.images" [builderComplexId]="buildingComplex.buildingComplex.buildingComplexId"></app-photos-uploader>
-  </div>
+<div class="wrapper">
+  <h3>Фото этапов строительства</h3>
+  <p>Не допускаются к размещению фотографии с водяными знаками, чужих объектов и рекламные баннеры.</p>
+  <p>Минимальное разрешение фото 800x600 px</p>
 
-  <div>
-    <h5>Описание комплекса</h5>
-    <angular-editor [(ngModel)]="buildingComplex.buildingComplex.description"></angular-editor>
-  </div>
-  
-<button (click)="next()">Next Button</button>
+  <app-photos-uploader [(images)]="buildingComplex.images" [builderComplexId]="buildingComplex.buildingComplex.buildingComplexId"></app-photos-uploader>
+</div>
+
+<div class="wrapper">
+  <h3>Описание комплекса</h3>
+  <angular-editor [(ngModel)]="buildingComplex.buildingComplex.description"></angular-editor>
+</div>
+
+<div class="action-buttons">
+    <button (click)="next()">Next Button</button>
+</div>

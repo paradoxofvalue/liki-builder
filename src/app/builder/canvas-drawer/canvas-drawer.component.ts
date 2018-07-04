@@ -1,17 +1,15 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Inject, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Markup } from '../markup';
-import { Observable, of, fromEvent } from 'rxjs';
-import { switchMap, subscribeOn, takeUntil, pairwise } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 import { Polygon } from './polygon';
 import { ColorConvert } from './color-convert';
-import { MatSelectModule, MatSelectChange } from '@angular/material/select';
-import { BuildingComplex } from '../one/building-complex';
+import { MatSelectChange } from '@angular/material/select';
 import { BuildingBlock } from '../two/building-block';
 
 @Component({
   selector: 'app-canvas-drawer',
   templateUrl: './canvas-drawer.component.html',
-  styleUrls: ['./canvas-drawer.component.css']
+  styleUrls: ['./canvas-drawer.component.scss']
 })
 export class CanvasDrawerComponent implements AfterViewInit {
 
@@ -183,7 +181,7 @@ export class CanvasDrawerComponent implements AfterViewInit {
       });
       if (inRange) {
         this.canvas.nativeElement.style.cursor = 'pointer';
-        console.log(hoveredPolygon);
+        // console.log(hoveredPolygon);
       } else {
         this.canvas.nativeElement.style.cursor = 'auto';
       }
@@ -311,6 +309,4 @@ export class CanvasDrawerComponent implements AfterViewInit {
     }
 
   }
-
-
 }

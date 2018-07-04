@@ -1,6 +1,13 @@
-<ul>
-  <li *ngFor='let item of stepsList; index as i'>
-    {{item}}
-    <span *ngIf='i == stepIndex'><*></span>
-  </li>
-</ul>
+<div class="wrapper">
+    <h3>Добавление комплекса:</h3>
+    <p>Укажите основную информацию о добавляемом комплексе.</p>
+    
+    <ul>
+      <li *ngFor='let item of stepsList; index as i' [ngClass]="{'active': stepIndex == i, 'previous': stepIndex > i}">
+        
+        <span class="number">{{i+1}}</span>шаг {{i+1}}
+        <!-- {{item}} -->
+        <!-- <span *ngIf='i == stepIndex'><*></span> -->
+      </li>
+    </ul>
+</div>

@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "liki-builder"
+  "defaultProject": "liki-builder",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  },
 }

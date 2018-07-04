@@ -5,7 +5,7 @@ import { BuildingBlock } from './building-block';
 @Component({
   selector: 'app-two',
   templateUrl: './two.component.html',
-  styleUrls: ['./two.component.css']
+  styleUrls: ['./two.component.scss']
 })
 export class TwoComponent implements OnInit {
   buildingStructure: BuildingBlock;
@@ -31,7 +31,7 @@ export class TwoComponent implements OnInit {
       ],
 
     }
-    this.ds.get('http://www.likmap.org:8070/add-complex-two/45')
+    this.ds.get('/add-complex-two/45')
       .subscribe(result => {
         this.buildingStructure = <BuildingBlock>result;
       })
@@ -86,7 +86,7 @@ export class TwoComponent implements OnInit {
   }
 
   next() {
-    this.ds.send('http://www.likmap.org:8070/add-complex-two', this.buildingStructure)
+    this.ds.send('/add-complex-two', this.buildingStructure)
       .subscribe(result => {
         this.ds.nextStep();
       });

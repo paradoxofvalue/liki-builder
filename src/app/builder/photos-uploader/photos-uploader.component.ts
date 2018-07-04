@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Photo } from './photo';
-import { FormControl } from '@angular/forms';
-
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 const moment = _moment;
 
@@ -23,7 +20,7 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-photos-uploader',
   templateUrl: './photos-uploader.component.html',
-  styleUrls: ['./photos-uploader.component.css'],
+  styleUrls: ['./photos-uploader.component.scss'],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ]

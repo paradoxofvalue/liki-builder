@@ -1,0 +1,81 @@
+@import '../../../assets/variables.scss';
+#map {
+  height: 200px;
+}
+.wrapper {
+  padding: $padding-size;
+  border: $border;
+  border-radius: $border-radius;
+  background-color: white;
+  margin-bottom: $margin-size;
+  display: flex;
+  flex-direction: column;
+  .form-group {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: $margin-size;
+    align-items: center;
+    label {
+      width: 270px;
+    }
+    input {
+      width: 420px;
+      padding: 0 10px;
+      line-height: 35px;
+      border: $border;
+      border-radius: $border-radius;
+      font-size: 1rem;
+      display: flex;
+      &.full {
+
+      }
+      &.date {
+        width: 100px;
+        margin: 0 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      &.price {
+        width: 80px;
+        margin: 0 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      &.address {
+        width: 100%;
+      }
+
+      
+      &[type='radio'] {
+        // visibility: hidden;
+        display: none;
+        
+        & + label {
+          cursor: pointer;
+          color: $active-font-color;
+          border-radius: $border-radius;
+          display: flex;
+          height: 37px;
+          line-height: 36px;
+          width: 50px;
+          justify-content: center;
+          transition: $transition;
+          &:hover {
+            background-color: $hover-button-color;
+          }
+        }
+        &:checked + label {
+          background-color: $active-button-color;
+          color: white;
+        }
+      }
+      
+    }
+    .currency-radio {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

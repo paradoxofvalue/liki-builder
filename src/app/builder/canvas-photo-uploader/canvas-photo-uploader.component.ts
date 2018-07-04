@@ -4,7 +4,7 @@ import { Markup } from '../canvas-drawer/markup';
 @Component({
   selector: 'app-canvas-photo-uploader',
   templateUrl: './canvas-photo-uploader.component.html',
-  styleUrls: ['./canvas-photo-uploader.component.css']
+  styleUrls: ['./canvas-photo-uploader.component.scss']
 })
 export class CanvasPhotoUploaderComponent implements OnInit {
 

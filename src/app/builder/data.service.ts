@@ -14,7 +14,7 @@ export class DataService {
     'four'
   ];
 
-  stepSource = new BehaviorSubject('3'); // или засетить из локал сторейдж
+  stepSource = new BehaviorSubject('0'); // или засетить из локал сторейдж
   
   stepIndex = this.stepSource.asObservable();
 
@@ -30,20 +30,17 @@ export class DataService {
     this.stepSource.next(+(this.stepSource.value) - 1 + '');
   }
 
-
   constructor(private http: HttpClient) { }
 
-  url = 'http://www.likmap.org:8080/add-complex-one/45';
-
-  getData() {
-    return this.http.get(this.url);
-  }
-
   get(url, body?) {
+    if (url[0] == '/') {
+      url = 'http://www.likmap.org:8080' + url;
+    }
     return this.http.get(url, {params: body});
   }
 
   send(url, body) {
+    url = 'http://www.likmap.org:8070' + url;
     return this.http.post(url, body);
   }
 }

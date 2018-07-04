@@ -6,7 +6,7 @@ import { BuildingBlock } from '../two/building-block';
 @Component({
   selector: 'app-four',
   templateUrl: './four.component.html',
-  styleUrls: ['./four.component.css']
+  styleUrls: ['./four.component.scss']
 })
 export class FourComponent implements OnInit {
 
@@ -22,7 +22,7 @@ export class FourComponent implements OnInit {
       buildingComplexId: null,
       buildingBlock: [],
     }
-    this.ds.get('http://www.likmap.org:8080/add-complex-two/45')
+    this.ds.get('/add-complex-two/45')
       .subscribe(result => {
         this.buildingBlock = <BuildingBlock>result;
         let tempId = [];
@@ -50,7 +50,12 @@ export class FourComponent implements OnInit {
   }
 
   next() {
-    this.ds.send('http://www.likmap.org:8070/add-markup', this.markups)
+    this.markups.forEach(canvas => {
+      canvas.buildingImagePolygons.forEach(polygon => {
+        polygon.polygon = JSON.stringify(polygon.tempPolygon);
+      })
+    });
+    this.ds.send('/add-markup', this.markups)
       .subscribe(result => {
         this.ds.nextStep();
       });

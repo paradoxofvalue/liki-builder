@@ -4,7 +4,7 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-progress',
   templateUrl: './progress.component.html',
-  styleUrls: ['./progress.component.css']
+  styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
   
@@ -18,5 +18,18 @@ export class ProgressComponent implements OnInit {
   ngOnInit() {
     this.ds.stepIndex.subscribe(value => this.stepIndex = value);
   }
+
+  activeStep(i) {
+    if (i <= this.stepIndex) {
+      return {'color': '#6485d8'};
+    }
+  }
+
+  activeStepBorder(i) {
+    if (i <= this.stepIndex) {
+      return {'border-color': '#6485d8'};
+    }
+  }
+  
 
 }
