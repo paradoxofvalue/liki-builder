@@ -46,8 +46,9 @@
   <div class="form-group">
     <input class="address" id="buildingComplex.address" type="text" [(ngModel)]="buildingComplex.buildingComplex.address">
 
-    <div id="map" height=300 width=300></div>
   </div>
+  <div id="map" height=300 width=300></div>
+
 </div>
 
 <div class="wrapper">
@@ -60,9 +61,10 @@
 
 <div class="wrapper">
   <h3>Описание комплекса</h3>
-  <angular-editor [(ngModel)]="buildingComplex.buildingComplex.description"></angular-editor>
+  <angular-editor [config]="editorConfig" [(ngModel)]="buildingComplex.buildingComplex.description"></angular-editor>
 </div>
 
 <div class="action-buttons">
-    <button (click)="next()">Next Button</button>
+  <button (click)="next()" style="visibility: hidden;">Next Button</button>
+  <button (click)="next()">Далее</button>
 </div>

@@ -4,7 +4,7 @@ import { BuildingComplex } from './building-complex';
 import { } from '@types/googlemaps';
 import { GoogleResult } from './google-result';
 import { ChangeDetectorRef } from '@angular/core';
-import { AngularEditorComponent } from '@kolkov/angular-editor';
+import { AngularEditorComponent, AngularEditorConfig } from '@kolkov/angular-editor';
 import * as _moment from 'moment';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
@@ -63,6 +63,15 @@ export class OneComponent implements OnInit {
       video: null,
     },
     images: [],
+  }
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    minHeight: '10rem',
+    height: 'auto',
+    placeholder: 'Описание обьекта',
+    translate: 'no',
   }
 
   constructor(private ds: DataService, private cd: ChangeDetectorRef) {

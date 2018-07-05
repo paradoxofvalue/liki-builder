@@ -6,7 +6,7 @@
   height: 100vh;
   margin-right: $margin-size;
   background-color: white;
-  position: relative;
+  position: fixed;
   &::before {
     content: '';
     width: 500px;
@@ -27,6 +27,7 @@
   ul {
     padding-left: 0;
     li {
+      cursor: default;
       list-style: none;
       width: 100%;
       margin-bottom: $margin-size;
@@ -62,6 +63,7 @@
         align-items: center;
         margin-right: $margin-size;
         color: $disabled-font-color;
+        cursor: default;
       }
       &.active {
         color: $active-font-color;

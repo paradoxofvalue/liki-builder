@@ -3,6 +3,7 @@
   height: 200px;
 }
 .wrapper {
+  position: relative;
   padding: $padding-size;
   border: $border;
   border-radius: $border-radius;
@@ -16,10 +17,10 @@
     margin-bottom: $margin-size;
     align-items: center;
     label {
-      width: 270px;
+      width: $label-width;
     }
     input {
-      width: 420px;
+      width: $input-width;
       padding: 0 10px;
       line-height: 35px;
       border: $border;
@@ -31,7 +32,9 @@
       }
       &.date {
         width: 100px;
-        margin: 0 10px;
+        margin: 0 12px;
+        cursor: pointer;
+        text-align: center;
         &:last-child {
           margin-right: 0;
         }
@@ -44,14 +47,10 @@
         }
       }
       &.address {
-        width: 100%;
+        width: $input-width + $label-width;
       }
-
-      
       &[type='radio'] {
-        // visibility: hidden;
-        display: none;
-        
+        display: none;        
         & + label {
           cursor: pointer;
           color: $active-font-color;
@@ -59,7 +58,8 @@
           display: flex;
           height: 37px;
           line-height: 36px;
-          width: 50px;
+          width: 51px;
+          margin: 0 2px;
           justify-content: center;
           transition: $transition;
           &:hover {
@@ -71,11 +71,47 @@
           color: white;
         }
       }
-      
     }
     .currency-radio {
       display: flex;
       flex-direction: row;
+    }
+  }
+  p {
+    font-weight: 200;
+    font-size: .9rem;
+    margin: 0;
+  }
+  
+}
+
+.action-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  & > button {
+    border: none;
+    outline: none;
+    line-height: $padding-size;
+    height: $padding-size;
+    width: 170px;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: $transition;
+    &:first-child {
+      color: $active-font-color;
+      background-color: $transparent-hover-button-color;
+      background-color: $hover-button-color;
+      &:hover {
+      }
+    }
+    &:last-child {
+      color: white;
+      background-color: $transparent-active-button-color;
+      background-color: $active-button-color;
+      &:hover {
+      }
     }
   }
 }
